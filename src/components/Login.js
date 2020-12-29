@@ -8,7 +8,6 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
-    const [isLogin, setIsLogin] = useState(false);
 
   // method login
   const handleLogin = async () => {
@@ -29,14 +28,13 @@ const Login = () => {
             (res) => {
                 console.log(res)
                 // if username and password wrong 
-                if(res.status == 500){
+                if(res.status === 500){
                     alert('invalid username and password')
                 }
                 else {
                     res.json().then((res) => {
                         console.warn("result", res)
                         localStorage.setItem('access_token', JSON.stringify({login: true, token: res.data.access_token}))
-                        setIsLogin(true)
                         history.push('/dashboard')
                       })
                 }
