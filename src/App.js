@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Dashboard from "./components/dashboard/Index";
+import Profile from "./components/myProfile/Index";
+import Order from "./components/Order/Index";
+import ChangePassword from "./components/changePassword/Index";
+import NotFound from "./components/templates/NotFound";
 
-function App() {
+const App = () =>{
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/" >
+          <Login />
+        </Route>
+        <Route path="/dashboard">
+          <Dashboard />
+        </Route>
+        <Route path="/profile">
+          <Profile />
+        </Route>
+        <Route path="/order">
+          <Order />
+        </Route>
+        <Route path="/change-password">
+          <ChangePassword />
+        </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
+        <Route path="*" component={NotFound} />
+      </Switch>
+    </Router>
   );
 }
 

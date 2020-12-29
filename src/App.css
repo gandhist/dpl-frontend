@@ -28,6 +28,15 @@
   color: #61dafb;
 }
 
+.login {
+  /*
+    background: url('https://tailwindadmin.netlify.app/dist/images/login-new.jpeg');
+  */
+  background: url("http://bit.ly/2gPLxZ4");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
