@@ -31,6 +31,11 @@ const Login = () => {
                 if(res.status === 500){
                     alert('invalid username and password')
                 }
+                else if(res.status === 422){
+                  res.json().then((res) => {
+                    alert(res.message)
+                  })
+                }
                 else {
                     res.json().then((res) => {
                         console.warn("result", res)

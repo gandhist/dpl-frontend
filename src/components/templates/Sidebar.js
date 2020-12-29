@@ -1,20 +1,75 @@
-import React, {Component} from "react";
-import {NavLink} from "react-router-dom";
+import React, {useContext} from "react";
+import {NavLink, useHistory} from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { UserContext, UserProvider } from "../context/User";
+import { authUser } from "../store/Index";
 
-class Sidebar extends Component{
-    render(){
+const User = () => {
+    const {user} = useContext(UserContext)
+    return (
+        <div>
+            {user.name}
+        </div>
+    )
+}
+
+
+
+const Sidebar = () => {
+    const userFromRecoil = useRecoilValue(authUser);
+    const access_token = JSON.parse(localStorage.getItem('access_token')).token;
+    const history = useHistory();
+
+
+    const Logout = async () => {
+        // revoking token to api
+        // get the response if true clear token @ local storage 
+        await fetch("http://127.0.0.1:8000/api/logout",{
+            method : "POST",
+            headers : {
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${access_token}`
+            }
+        }).then(
+            (res) => {
+                if(res.status === 500){
+                    alert('something went wrong while logout')
+                }
+                else {
+                    res.json().then((res) => {
+                        // console.warn("result", res)
+                        localStorage.removeItem('access_token')
+                        history.push('/login')
+                      })
+                }
+            }
+        )
+    }
+
         return(
-            <div className="w-3/12 bg-white rounded p-3 shadow-lg">
+            <div className="w-3/12 text-white rounded p-3 shadow-lg">
                 <div className="flex items-center space-x-4 p-2 mb-5">
-                    <img className="h-12 rounded-full" src="https://avatars0.githubusercontent.com/u/22018903?s=460&v=4" alt="James Bhatta" />
+                    <img className="h-12 rounded-full" src={userFromRecoil.data.profile_photo_url} alt={userFromRecoil.name} />
                     <div>
-                        <h4 className="font-semibold text-lg text-gray-700 capitalize font-poppins tracking-wide">Gandhist</h4>
+                        <h4 className="font-semibold text-lg text-gray-700 capitalize font-poppins tracking-wide">
+                            {/* <UserProvider>
+                                <User />
+                            </UserProvider> */}
+                            {userFromRecoil.data.name}
+                        </h4>
                         <span className="text-sm tracking-wide flex items-center space-x-1">
                             <svg className="h-4 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                             </svg><span className="text-gray-600">Verified</span>
                         </span>
+                        <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" name="toggle" id="toggle" className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                            <label htmlFor="toggle" className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                        </div>
+                        <label htmlFor="toggle" className="text-xs text-gray-700">Dark Mode</label>
                     </div>
+                    
                 </div>
                 <ul className="space-y-2 text-sm">
                     <li>
@@ -98,19 +153,18 @@ class Sidebar extends Component{
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink exact to="/" activeClassName="bg-gray-200" className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
+                        <button onClick={Logout} className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                             <span className="text-gray-600">
                                 <svg className="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                 </svg>
                             </span>
                             <span>Logout</span>
-                        </NavLink>
+                        </button>
                     </li>
                 </ul>
             </div>                
         );
-    }
 }
 
 export default Sidebar;

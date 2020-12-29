@@ -24,7 +24,7 @@ const Profile = () => {
                     }
                     else {
                         res.json().then((res) =>{
-                            console.log("result", res)
+                            // console.log("result", res)
                             setUser(res.data);
                             setEmail(res.data.email);
                             setName(res.data.name);
@@ -40,7 +40,7 @@ const Profile = () => {
 
     useEffect(() => {
         getUser()
-    }, [])
+    }, [access_token])
    
     return(
         <div>

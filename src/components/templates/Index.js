@@ -9,7 +9,7 @@ const Index = ({ children }) =>{
                 <div className="w-9/12">
                     <div className="container">
                         <div className="flex space-x-4 p-2 mb-5">
-                            {children}
+                        {children}
                         </div>
                     </div>
                 </div>
