@@ -7,6 +7,7 @@ import { selector, atom } from "recoil";
 
 
 const isLogin = JSON.parse(localStorage.getItem('access_token')) ? JSON.parse(localStorage.getItem('access_token')).login : false;
+const token = JSON.parse(localStorage.getItem('access_token')) ? JSON.parse(localStorage.getItem('access_token')).token : '';
 
 
 const authUser = selector({
@@ -15,34 +16,29 @@ const authUser = selector({
         const access_token = JSON.parse(localStorage.getItem('access_token')).token;
         var user = null;
         try {
-                user = await fetch("http://127.0.0.1:8000/api/user", {
-                    method : "GET",
-                    headers : {
-                        'Accept' : 'application/json',
-                        'Content-Type' : 'application/json',
-                        'Authorization' : `Bearer ${access_token}` 
+            user = await fetch("http://127.0.0.1:8000/api/user", {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(
+                (res) => {
+                    if (res.status === 500) {
+                        alert('error fetching data')
                     }
-                }).then(
-                    (res) => {
-                        if(res.status === 500){
-                            alert('error fetching data')
-                        }
-                        else {
-                            return res.json(); 
-                            // res.json().then(
-                            //     (res) =>{
-                            //         return res.data
-                            //     }
-                            // )
-                        }
-                    } 
-                )
+                    else {
+                        return res.json();
+                    }
+                }
+            )
         } catch {
             console.warn("warn", "failed to get user data")
         }
         let data = {
-            isLogin : isLogin,
-            data : user.data,
+            isLogin: isLogin,
+            data: user.data,
         }
         return data;
     }
@@ -50,8 +46,9 @@ const authUser = selector({
 
 const authenticated = atom({
     key: 'authenticated',
-    default : {
-        check : isLogin
+    default: {
+        check: isLogin,
+        token: token
     }
 });
 

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { authUser } from "../store/Index";
 
 const Profile = () => {
 
+    const authUserx = useRecoilValue(authUser);
     const [user, setUser] = useState([]);
     const access_token = JSON.parse(localStorage.getItem('access_token')).token;
     const [email, setEmail] = useState('');
@@ -11,22 +14,22 @@ const Profile = () => {
     const [loading, setLoading] = useState(false);
 
     // get user detals
-    const getUser = async () =>{
+    const getUser = async () => {
         try {
             await fetch('http://127.0.0.1:8000/api/user', {
-                method : "GET",
-                headers : {
-                    'Accept' : 'application/json',
-                    'Content-Type' : 'application/json',
-                    'Authorization' : `Bearer ${access_token}` 
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${access_token}`
                 }
             }).then(
                 (res) => {
-                    if(res.status === 500){
+                    if (res.status === 500) {
                         alert('error fetching data')
                     }
                     else {
-                        res.json().then((res) =>{
+                        res.json().then((res) => {
                             // console.log("result", res)
                             setUser(res.data);
                             setEmail(res.data.email);
@@ -36,7 +39,7 @@ const Profile = () => {
                     }
                 }
             )
-            
+
         } catch {
             alert("something went wrong")
         }
@@ -47,24 +50,24 @@ const Profile = () => {
         try {
             setLoading(true)
             let dataUpdate = {
-                name : name,
-                phone : phone,
-                password : password
+                name: name,
+                phone: phone,
+                password: password
             }
-            await fetch('http://127.0.0.1:8000/api/user',{
+            await fetch('http://127.0.0.1:8000/api/user', {
                 method: "POST",
-                headers : {
-                    'Accept' : 'application/json',
-                    'Content-Type' : 'application/json',
-                    'Authorization' : `Bearer ${access_token}`
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${access_token}`
                 },
-                body : JSON.stringify(dataUpdate)
+                body: JSON.stringify(dataUpdate)
             }).then(
                 (res) => {
-                    if(res.status === 500){
+                    if (res.status === 500) {
                         alert('something went wrong')
                     }
-                    else if(res.status == 422){
+                    else if (res.status === 422) {
                         alert(res.message)
                     }
                     else {
@@ -87,113 +90,129 @@ const Profile = () => {
     useEffect(() => {
         getUser()
     }, [access_token])
-   
-    return(
+
+    return (
         <div>
-            {/* <div className="py-8 px-8 max-w-sm mx-auto bg-white rounded-xl shadow-md space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
-                <img className="block mx-auto h-24 rounded-full sm:mx-0 sm:flex-shrink-0" src={this.state.profilePict} alt="Woman's Face" />
-                <div className="text-center space-y-2 sm:text-left">
-                    <div className="space-y-0.5">
-                    <p className="text-lg text-black font-semibold">
-                        Gandhi
-                    </p>
-                    <p className="text-gray-500 font-medium">
-                        Software Engineer
-                    </p>
-                    </div>
-                    <button className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">Message</button>
-                </div>
-            </div> */}
-            <div className="mx-auto container max-w-2xl md:w-0/12  shadow-md">
-                <div className="bg-gray-100 p-4 border-t-2 bg-opacity-5 border-indigo-400 rounded-t">
-                <div className="max-w-sm mx-auto md:w-full md:mx-0">
-                    <div className="inline-flex items-center space-x-4">
-                    <img className="w-10 h-10 object-cover rounded-full" alt="User avatar" src={user.profile_photo_url} />
-                    <h1 className="text-gray-600">{user.name}</h1>
-                    </div>
-                </div>
-                </div>
-                <div className="bg-white">
-                <div className="md:inline-flex space-y-4 md:space-y-0 w-full p-4 text-gray-500 items-center">
-                    <h2 className="md:w-1/3 max-w-sm mx-auto">Account</h2>
-                    <div className="md:w-2/3 max-w-sm mx-auto">
-                    <label className="text-sm text-gray-400">Email</label>
-                    <div className="w-full inline-flex border">
-                        <div className="pt-2 w-1/12 bg-gray-100 bg-opacity-50">
-                        <svg fill="none" className="w-6 text-gray-400 mx-auto" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                        </div>
-                        <input type="email" className="w-11/12 focus:outline-none focus:text-gray-600 p-2" placeholder="email@example.com" value={email} onChange={e => setEmail(e.target.value)} />
-                    </div>
-                    </div>
-                </div>
-                <hr />
-                <div className="md:inline-flex  space-y-4 md:space-y-0  w-full p-4 text-gray-500 items-center">
-                    <h2 className="md:w-1/3 mx-auto max-w-sm">Personal info</h2>
-                    <div className="md:w-2/3 mx-auto max-w-sm space-y-5">
-                    <div>
-                        <label className="text-sm text-gray-400">Full name</label>
-                        <div className="w-full inline-flex border">
-                        <div className="w-1/12 pt-2 bg-gray-100">
-                            <svg fill="none" className="w-6 text-gray-400 mx-auto" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
-                        </div>
-                        <input type="text" className="w-11/12 focus:outline-none focus:text-gray-600 p-2" placeholder="Your Full Name" value={name} onChange={e => setName(e.target.value)} />
-                        </div>
-                    </div>
-                    <div>
-                        <label className="text-sm text-gray-400">Phone number</label>
-                        <div className="w-full inline-flex border">
-                        <div className="pt-2 w-1/12 bg-gray-100">
-                            <svg fill="none" className="w-6 text-gray-400 mx-auto" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                            </svg>
-                        </div>
-                        <input type="text" className="w-11/12 focus:outline-none focus:text-gray-600 p-2" value={phone} onChange={e => setPhone(e.target.value)} placeholder={12341234} />
+            <div className="container-fluid p-0">
+                <h1 className="h3 mb-3" >Profile</h1>
+                <div className="row">
+                    <div className="col-md-4 col-xl-3">
+                        <div className="card mb-3">
+                            <div className="card-header">
+                                <h5 className="card-title mb-0">Profile Details</h5>
+                            </div>
+                            <div className="card-body text-center">
+                                <img src={authUserx.data.profile_photo_url} alt={authUserx.data.name} className="img-fluid rounded-circle mb-2" width={128} height={128} />
+                                <h5 className="card-title mb-0">{authUserx.data.name}</h5>
+                                <div className="text-muted mb-2">Lead Developer</div>
+                                <div>
+                                    <a className="btn btn-primary btn-sm" href="#">Follow</a>
+                                    <a className="btn btn-primary btn-sm" href="#"><span data-feather="message-square" /> Message</a>
+                                </div>
+                            </div>
+                            <hr className="my-0" />
+                            <div className="card-body">
+                                <h5 className="h6 card-title">Skills</h5>
+                                <a href="#" className="badge bg-primary mr-1 my-1">HTML</a>
+                                <a href="#" className="badge bg-primary mr-1 my-1">JavaScript</a>
+                                <a href="#" className="badge bg-primary mr-1 my-1">Sass</a>
+                                <a href="#" className="badge bg-primary mr-1 my-1">Angular</a>
+                                <a href="#" className="badge bg-primary mr-1 my-1">Vue</a>
+                                <a href="#" className="badge bg-primary mr-1 my-1">React</a>
+                                <a href="#" className="badge bg-primary mr-1 my-1">Redux</a>
+                                <a href="#" className="badge bg-primary mr-1 my-1">UI</a>
+                                <a href="#" className="badge bg-primary mr-1 my-1">UX</a>
+                            </div>
+                            <hr className="my-0" />
+                            <div className="card-body">
+                                <h5 className="h6 card-title">About</h5>
+                                <ul className="list-unstyled mb-0">
+                                    <li className="mb-1"><span data-feather="home" className="feather-sm mr-1" /> Lives in <a href="#">San Francisco, SA</a></li>
+                                    <li className="mb-1"><span data-feather="briefcase" className="feather-sm mr-1" /> Works at <a href="#">GitHub</a></li>
+                                    <li className="mb-1"><span data-feather="map-pin" className="feather-sm mr-1" /> From <a href="#">Boston</a></li>
+                                </ul>
+                            </div>
+                            <hr className="my-0" />
+                            <div className="card-body">
+                                <h5 className="h6 card-title">Elsewhere</h5>
+                                <ul className="list-unstyled mb-0">
+                                    <li className="mb-1"><span className="fas fa-globe fa-fw mr-1" /> <a href="#">staciehall.co</a></li>
+                                    <li className="mb-1"><span className="fab fa-twitter fa-fw mr-1" /> <a href="#">Twitter</a></li>
+                                    <li className="mb-1"><span className="fab fa-facebook fa-fw mr-1" /> <a href="#">Facebook</a></li>
+                                    <li className="mb-1"><span className="fab fa-instagram fa-fw mr-1" /> <a href="#">Instagram</a></li>
+                                    <li className="mb-1"><span className="fab fa-linkedin fa-fw mr-1" /> <a href="#">LinkedIn</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                </div>
-                <hr />
-                <div className="md:inline-flex w-full space-y-4 md:space-y-0 p-8 text-gray-500 items-center">
-                    <h2 className="md:w-4/12 max-w-sm mx-auto">Change password</h2>
-                    <div className="md:w-5/12 w-full md:pl-9 max-w-sm mx-auto space-y-5 md:inline-flex pl-2">
-                    <div className="w-full inline-flex border-b">
-                        <div className="w-1/12 pt-2">
-                        <svg fill="none" className="w-6 text-gray-400 mx-auto" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                        </svg>
+
+                    <div className="col-md-8 col-xl-9" >
+                        <div className="card">
+                            <div className="card-header">
+                                <h5 className="card-title">Update Profile</h5>
+                                <h6 className="card-subtitle text-muted">Update your data.</h6>
+                            </div>
+                            <div className="card-body">
+                                <form>
+                                    <div className="row">
+                                        <div className="mb-3 col-md-6">
+                                            <label className="form-label" htmlFor="inputEmail4">Email</label>
+                                            <input value={email} onChange={e => setEmail(e.target.value)} type="email" className="form-control" id="email" name="email" placeholder="Email" />
+                                        </div>
+                                        <div className="mb-3 col-md-6">
+                                            <label className="form-label" htmlFor="inputEmail4">Name</label>
+                                            <input value={name} onChange={e => setName(e.target.value)} type="text" className="form-control" id="name" name="name" placeholder="Email" />
+                                        </div>
+                                        <div className="mb-3 col-md-6">
+                                            <label className="form-label" htmlFor="inputPassword4">Password</label>
+                                            <input value={password} onChange={e => setPassword(e.target.value)} type="password" className="form-control" id="password" name="password" placeholder="Password" />
+                                        </div>
+                                        <div className="mb-3 col-md-6">
+                                            <label className="form-label" htmlFor="inputPassword4">Phone</label>
+                                            <input value={phone} onChange={e => setPassword(e.target.value)} type="text" className="form-control" id="phone" name="phone" placeholder="08xxxxxx" />
+                                        </div>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className="form-label" htmlFor="inputAddress">Address</label>
+                                        <input type="text" className="form-control" id="inputAddress" placeholder="1234 Main St" />
+                                    </div>
+                                    <div className="row">
+                                        <div className="mb-3 col-md-6">
+                                            <label className="form-label" htmlFor="inputCity">City</label>
+                                            <input type="text" className="form-control" id="inputCity" />
+                                        </div>
+                                        <div className="mb-3 col-md-4">
+                                            <label className="form-label" htmlFor="inputState">State</label>
+                                            <select defaultValue='' id="inputState" className="form-control">
+                                                <option selected>Choose...</option>
+                                                <option>...</option>
+                                            </select>
+                                        </div>
+                                        <div className="mb-3 col-md-2">
+                                            <label className="form-label" htmlFor="inputZip">Zip</label>
+                                            <input type="text" className="form-control" id="inputZip" />
+                                        </div>
+                                    </div>
+                                    {/* <div className="mb-3">
+                                        <label className="form-label">
+                                            <input type="checkbox" className="form-check-input" />
+                                            <span className="form-check-label">Check me out</span>
+                                        </label>
+                                    </div> */}
+                                    <button onClick={updateUser} type="button" className="btn btn-primary">{
+                                        loading ? 'Loading...' : 'Update'
+                                    }</button>
+                                </form>
+                            </div>
                         </div>
-                        <input type="password" className="w-11/12 focus:outline-none focus:text-gray-600 p-2 ml-4" placeholder="New" value={password} onChange={e => setPassword(e.target.value)} />
+
                     </div>
-                    </div>
-                    <div className="md:w-3/12 text-center md:pl-6">
-                    <button type="button" onClick={updateUser} className="text-white w-full mx-auto max-w-sm rounded-md text-center bg-indigo-400 py-2 px-4 inline-flex items-center focus:outline-none md:float-right">
-                        <svg fill="none" className="w-4 text-white mr-2" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
-                        {
-                            loading ? 'Loading...' : 'Update'
-                        }
-                    </button>
-                    </div>
-                </div>
-                {/* <hr />
-                <div className="w-full p-4 text-right text-gray-500">
-                    <button className="inline-flex items-center focus:outline-none mr-4">
-                    <svg fill="none" className="w-4 mr-2" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
-                    Delete account
-                    </button>
-                </div> */}
                 </div>
             </div>
-
         </div>
     );
+
+
 }
 
 export default Profile;
