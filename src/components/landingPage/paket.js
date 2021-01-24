@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import UseDarkMode from '../store/UseDarkMode';
 
 const Paket = () => {
 
-    const [darkMode, setDarkMode] = useState(false);
+    const [theme, setTheme] = UseDarkMode();
+    const [darkMode, setDarkMode] = useState(theme === "light" ? false : true);
 
     const handleDarkMode = () => {
+        setTheme(darkMode ? "dark" : "light");
         setDarkMode(!darkMode);
     }
     return (
@@ -19,7 +22,7 @@ const Paket = () => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <NavLink exact to="/" className="nav-link active" aria-current="page" href="#">Beranda</NavLink>
+                                <NavLink exact to="/" className="nav-link" aria-current="page" href="#">Beranda</NavLink>
                             </li>
                             <li className="nav-item">
                                 <NavLink exact to="/paket" className="nav-link" href="#">Paket</NavLink>
@@ -52,14 +55,14 @@ const Paket = () => {
                     <div className="row ustify-content-center text-center">
                         <div className="col-md-12 col-lg-12 ">
                             <button className="btn btn-primary" >Pesan Sekarang!</button>
-                            <a target="_blank" href="https://dpl.niowcode.id/" target="_blank" className="btn btn-primary ml-2" >Mau Chat Admin?</a>
+                            <a target="_blank" href="https://dpl.niowcode.id/" rel="noreferrer" className="btn btn-primary ml-2" >Mau Chat Admin?</a>
                         </div>
                     </div>
                     <div className="row mt-4">
                         <div className="col-sm-4">
                             <div className={`card mb-3 shadow-lg ${darkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
                                 {/* <img className="card-img-top rounded mx-auto d-block" src="https://dpl.niowcode.id/images/giphy_1.gif" alt="Card image cap" /> */}
-                                <img style={{ height: '250px' }} className="card-img-top rounded mx-auto d-block" src="https://media.giphy.com/media/jQEwinjYT2Vck/giphy.gif" alt="Card image cap" />
+                                <img style={{ height: '250px' }} className="card-img-top rounded mx-auto d-block" src="https://media.giphy.com/media/jQEwinjYT2Vck/giphy.gif" alt="Card cap" />
 
                                 <div className={`card-body`}>
                                     <h5 className={`card-title ${darkMode ? 'text-white' : 'text-dark'}`}>Khabib Nurmagomedov</h5>
@@ -69,7 +72,7 @@ const Paket = () => {
                         </div>
                         <div className="col-sm-4">
                             <div className={`card mb-3 shadow-lg ${darkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
-                                <img style={{ height: '250px' }} className="card-img-top rounded mx-auto d-block" src="https://media.giphy.com/media/l2Sq2ySYEIl3mzVgk/giphy.gif" alt="Card image cap" />
+                                <img style={{ height: '250px' }} className="card-img-top rounded mx-auto d-block" src="https://media.giphy.com/media/l2Sq2ySYEIl3mzVgk/giphy.gif" alt="Card cap" />
                                 <div className={`card-body`}>
                                     <h5 className={`card-title ${darkMode ? 'text-white' : 'text-dark'}`}>Dark card title</h5>
                                     <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -78,7 +81,7 @@ const Paket = () => {
                         </div>
                         <div className="col-sm-4">
                             <div className={`card mb-3 shadow-lg ${darkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
-                                <img style={{ height: '250px' }} className="card-img-top rounded mx-auto d-block" src="https://media.giphy.com/media/3o7ZeltXSmmz7Q5LCo/giphy.gif" alt="Card image cap" />
+                                <img style={{ height: '250px' }} className="card-img-top rounded mx-auto d-block" src="https://media.giphy.com/media/3o7ZeltXSmmz7Q5LCo/giphy.gif" alt="Card cap" />
                                 <div className={`card-body`}>
                                     <h5 className={`card-title ${darkMode ? 'text-white' : 'text-dark'}`}>Dark card title</h5>
                                     <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -96,19 +99,19 @@ const Paket = () => {
                 <div className="container">
                     <ul className="list-inline mb-0 text-center">
                         <li className="list-inline-item">
-                            <a href=""><span className="fa fa-twitter"></span></a>
+                            <span className="fa fa-twitter"></span>
                         </li>
 
                         <li className="list-inline-item">
-                            <a href=""><span className="fa fa-google-plus"></span></a>
+                            <span className="fa fa-google-plus"></span>
                         </li>
 
                         <li className="list-inline-item">
-                            <a href=""><span className="fa fa-instagram"></span></a>
+                            <span className="fa fa-instagram"></span>
                         </li>
 
                         <li className="list-inline-item">
-                            <a href=""><span className="fa fa-envelope-o"></span></a>
+                            <span className="fa fa-envelope-o"></span>
                         </li>
                     </ul>
                 </div>

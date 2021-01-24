@@ -38,37 +38,35 @@ const Sidebar = () => {
                                 <i className="align-middle fa fa-dashboard" data-feather="sliders" /> <span className="align-middle">Dashboard</span>
                             </NavLink>
                         </li>
+
                         <li className="sidebar-item">
-                            <NavLink exact to="/profile" className="sidebar-link">
-                                <i className="align-middle" data-feather="user" /> <span className="align-middle">Profile</span>
-                            </NavLink>
-                        </li>
-                        <NavLink exact to="/profile" className="sidebar-link">
-                            <li className="sidebar-item" >
-                                <i className="align-middle" data-feather="settings" /> <span className="align-middle">Settings</span>
-                            </li>
-                        </NavLink>
-                        <li className="sidebar-item">
-                            <NavLink exact to="/profile" className="sidebar-link">
-                                <i className="align-middle" data-feather="credit-card" /> <span className="align-middle">Invoice</span>
+                            <NavLink exact to="ds/paket" className="sidebar-link">
+                                <i className="align-middle fa fa-dropbox" data-feather="credit-card" /> <span className="align-middle">Paket</span>
                             </NavLink>
                         </li>
                         <li className="sidebar-item">
-                            <NavLink exact to="/order" className="sidebar-link">
-                                <i className="align-middle" data-feather="book" /> <span className="align-middle">Orders Lists</span>
+                            <NavLink exact to="ds/order" className="sidebar-link">
+                                <i className="align-middle fa fa-address-book-o" data-feather="book" /> <span className="align-middle">Orders Lists</span>
                             </NavLink>
                         </li>
                         <li className="sidebar-item">
-                            <a href="#auth" data-toggle="collapse" className="sidebar-link collapsed">
-                                <i className="align-middle" data-feather="users"></i> <span className="align-middle">Auth</span>
+                            <a href="#master" data-toggle="collapse" className="sidebar-link collapsed">
+                                <i className="align-middle fa fa-database" data-feather="users"></i> <span className="align-middle">Data Master</span>
                             </a>
-                            <ul id="auth" className="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
-                                <li className="sidebar-item"><NavLink className="sidebar-link" to="change-password">Sign In</NavLink></li>
-                                <li className="sidebar-item"><NavLink className="sidebar-link" to="change-password">Sign Up</NavLink></li>
-                                <li className="sidebar-item"><NavLink exact to="change-password" className="sidebar-link">Change Password</NavLink></li>
+                            <ul id="master" className="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+                                <li className="sidebar-item"><NavLink exact to="ds/master/paket" className="sidebar-link">Paket</NavLink></li>
+                                <li className="sidebar-item"><NavLink exact to="ds/master/kategori" className="sidebar-link">Kategori</NavLink></li>
+                                <li className="sidebar-item"><NavLink exact to="ds/master/properti" className="sidebar-link">Properti</NavLink></li>
+                                <li className="sidebar-item"><NavLink exact to="ds/master/satuan" className="sidebar-link">Properti</NavLink></li>
 
                             </ul>
                         </li>
+                        <li className="sidebar-item">
+                            <NavLink exact to="ds/change-password" className="sidebar-link">
+                                <i className="align-middle fa fa-key" data-feather="book" /> <span className="align-middle">Change Password</span>
+                            </NavLink>
+                        </li>
+
                     </ul>
                     {/* <div className="sidebar-cta">
                         <div className="sidebar-cta-content">

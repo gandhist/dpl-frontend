@@ -16,3 +16,26 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+
+/*
+todo list :
+middleware roles permission laravel & react
+crud uom
+crud properties
+crud users
+crud order with details
+crud packages
+crud category
+crud pacakages details
+
+- role
+- admin
+- user
+
+- user oauth
+- FE packages
+- FE category, with property detail
+- order page
+
+*/

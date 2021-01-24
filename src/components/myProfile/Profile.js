@@ -106,8 +106,8 @@ const Profile = () => {
                                 <h5 className="card-title mb-0">{authUserx.data.name}</h5>
                                 <div className="text-muted mb-2">Lead Developer</div>
                                 <div>
-                                    <a className="btn btn-primary btn-sm" href="#">Follow</a>
-                                    <a className="btn btn-primary btn-sm" href="#"><span data-feather="message-square" /> Message</a>
+                                    <a className="btn btn-primary btn-sm" href="#" rel="noreferrer">Follow</a>
+                                    <a className="btn btn-primary btn-sm" href="#" rel="noreferrer"><span data-feather="message-square" /> Message</a>
                                 </div>
                             </div>
                             <hr className="my-0" />

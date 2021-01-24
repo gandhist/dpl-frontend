@@ -41,19 +41,24 @@ const App = () => {
               <Route path="/dashboard">
                 <Dashboard />
               </Route>
-              <Route path="/profile">
+              <Route path="/ds/profile">
                 <Profile />
               </Route>
-              <Route path="/order">
+              <Route path="/ds/paket">
+                <Profile />
+              </Route>
+              <Route path="/ds/order">
                 <Order />
               </Route>
-              <Route path="/change-password">
+              <Route path="/ds/change-password">
                 <ChangePassword />
               </Route>
             </Authenticated>
 
 
-            <Route path="*" component={NotFound} />
+            <Route path="*" >
+              <NotFound />
+            </Route>
           </Switch>
         </Suspense>
       </RecoilRoot>
