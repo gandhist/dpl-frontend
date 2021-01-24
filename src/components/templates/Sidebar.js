@@ -27,7 +27,7 @@ const Sidebar = () => {
             <nav id="sidebar" className="sidebar">
                 <div className="sidebar-content js-simplebar">
                     <Link className="sidebar-brand" to="/">
-                        <span className="align-middle">DPL-Books</span>
+                        <span className="align-middle">DPL-Books - {userFromRecoil.data.name}</span>
                     </Link>
                     <ul className="sidebar-nav">
                         <li className="sidebar-header">
@@ -40,12 +40,12 @@ const Sidebar = () => {
                         </li>
 
                         <li className="sidebar-item">
-                            <NavLink exact to="ds/paket" className="sidebar-link">
+                            <NavLink exact to="/paket" className="sidebar-link">
                                 <i className="align-middle fa fa-dropbox" data-feather="credit-card" /> <span className="align-middle">Paket</span>
                             </NavLink>
                         </li>
                         <li className="sidebar-item">
-                            <NavLink exact to="ds/order" className="sidebar-link">
+                            <NavLink exact to="/order" className="sidebar-link">
                                 <i className="align-middle fa fa-address-book-o" data-feather="book" /> <span className="align-middle">Orders Lists</span>
                             </NavLink>
                         </li>
@@ -54,15 +54,15 @@ const Sidebar = () => {
                                 <i className="align-middle fa fa-database" data-feather="users"></i> <span className="align-middle">Data Master</span>
                             </a>
                             <ul id="master" className="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
-                                <li className="sidebar-item"><NavLink exact to="ds/master/paket" className="sidebar-link">Paket</NavLink></li>
-                                <li className="sidebar-item"><NavLink exact to="ds/master/kategori" className="sidebar-link">Kategori</NavLink></li>
-                                <li className="sidebar-item"><NavLink exact to="ds/master/properti" className="sidebar-link">Properti</NavLink></li>
-                                <li className="sidebar-item"><NavLink exact to="ds/master/satuan" className="sidebar-link">Properti</NavLink></li>
+                                <li className="sidebar-item"><NavLink exact to="/paket" className="sidebar-link">Paket</NavLink></li>
+                                <li className="sidebar-item"><NavLink exact to="/kategori" className="sidebar-link">Kategori</NavLink></li>
+                                <li className="sidebar-item"><NavLink exact to="/properti" className="sidebar-link">Properti</NavLink></li>
+                                <li className="sidebar-item"><NavLink exact to="/satuan" className="sidebar-link">Properti</NavLink></li>
 
                             </ul>
                         </li>
                         <li className="sidebar-item">
-                            <NavLink exact to="ds/change-password" className="sidebar-link">
+                            <NavLink exact to="change-password" className="sidebar-link">
                                 <i className="align-middle fa fa-key" data-feather="book" /> <span className="align-middle">Change Password</span>
                             </NavLink>
                         </li>

@@ -10,6 +10,7 @@ import NotFound from "./components/templates/NotFound";
 import Index from "./components/landingPage/index";
 import Paket from "./components/landingPage/paket";
 import Desain from "./components/landingPage/desain";
+import MsPaket from "./components/admin/master/paket/index";
 import { RecoilRoot } from 'recoil';
 import Authenticated from "./components/middleware/Authenticated";
 
@@ -41,16 +42,16 @@ const App = () => {
               <Route path="/dashboard">
                 <Dashboard />
               </Route>
-              <Route path="/ds/profile">
+              <Route path="/profile">
                 <Profile />
               </Route>
-              <Route path="/ds/paket">
-                <Profile />
+              <Route path="/paket">
+                <MsPaket />
               </Route>
-              <Route path="/ds/order">
+              <Route path="/order">
                 <Order />
               </Route>
-              <Route path="/ds/change-password">
+              <Route path="/change-password">
                 <ChangePassword />
               </Route>
             </Authenticated>

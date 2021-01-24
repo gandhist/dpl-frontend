@@ -12,7 +12,7 @@ const Authenticated = (props) => {
         if (!auth.check) {
             history.push('/login')
         }
-    }, [auth.check])
+    }, [auth.check, history])
 
     return props.children;
 }

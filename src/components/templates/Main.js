@@ -39,7 +39,7 @@ const Main = ({ children }) => {
     return (
         <div className="main">
             <nav className="navbar navbar-expand navbar-light navbar-bg">
-                <a className="sidebar-toggle d-flex">
+                <a className="sidebar-toggle d-flex" href="/">
                     <i className="hamburger align-self-center" />
                 </a>
                 <form className="d-none d-sm-inline-block">
@@ -53,7 +53,7 @@ const Main = ({ children }) => {
                 <div className="navbar-collapse collapse">
                     <ul className="navbar-nav navbar-align">
                         <li className="nav-item dropdown">
-                            <a className="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-toggle="dropdown">
+                            <a className="nav-icon dropdown-toggle" href="/" id="alertsDropdown" data-toggle="dropdown">
                                 <div className="position-relative">
                                     <i className="align-middle fa fa-bell-o" data-feather="bell" />
                                     <span className="indicator">1</span>
@@ -83,7 +83,7 @@ const Main = ({ children }) => {
                             </div>
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-toggle="dropdown">
+                            <a className="nav-icon dropdown-toggle" href="/" id="messagesDropdown" data-toggle="dropdown">
                                 <div className="position-relative">
                                     <i className="align-middle fa fa-paper-plane-o" data-feather="message-square" />
                                 </div>
@@ -114,10 +114,10 @@ const Main = ({ children }) => {
                             </div>
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-toggle="dropdown">
+                            <a className="nav-icon dropdown-toggle d-inline-block d-sm-none" href="/" data-toggle="dropdown">
                                 <i className="align-middle" data-feather="settings" />
                             </a>
-                            <a className="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
+                            <a className="nav-link dropdown-toggle d-none d-sm-inline-block" href="/" data-toggle="dropdown">
                                 <img src={user.data.profile_photo_url} className="avatar img-fluid rounded mr-1" alt="Charles Hall" /> <span className="text-dark">{user.data.name}</span>
                             </a>
                             <div className="dropdown-menu dropdown-menu-right">

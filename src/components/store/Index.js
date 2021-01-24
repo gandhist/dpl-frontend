@@ -13,7 +13,7 @@ const token = JSON.parse(localStorage.getItem('access_token')) ? JSON.parse(loca
 const authUser = selector({
     key: 'authUser',
     get: async () => {
-        const access_token = JSON.parse(localStorage.getItem('access_token')).token;
+        // const access_token = JSON.parse(localStorage.getItem('access_token')).token;
         var user = null;
         try {
             user = await fetch("http://127.0.0.1:8000/api/user", {

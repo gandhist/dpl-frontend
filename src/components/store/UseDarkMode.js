@@ -1,7 +1,7 @@
 import { useRecoilState } from "recoil";
 import atomTheme from "./Theme";
 
-export default () => {
+const useDarkMode = () => {
     const [theme, setTheme] = useRecoilState(atomTheme);
 
     const saveTheme = (chosenTheme) => {
@@ -15,3 +15,5 @@ export default () => {
 
     return [theme, toggleTheme];
 };
+
+export default useDarkMode;

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { authUser } from "../store/Index";
+import { Link } from "react-router-dom";
+// import { useRecoilValue } from "recoil";
+// import { authUser } from "../store/Index";
 
 const Profile = () => {
 
-    const authUserx = useRecoilValue(authUser);
+    // const authUserx = useRecoilValue(authUser);
     const [user, setUser] = useState([]);
     const access_token = JSON.parse(localStorage.getItem('access_token')).token;
     const [email, setEmail] = useState('');
@@ -13,37 +14,8 @@ const Profile = () => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
 
-    // get user detals
-    const getUser = async () => {
-        try {
-            await fetch('http://127.0.0.1:8000/api/user', {
-                method: "GET",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${access_token}`
-                }
-            }).then(
-                (res) => {
-                    if (res.status === 500) {
-                        alert('error fetching data')
-                    }
-                    else {
-                        res.json().then((res) => {
-                            // console.log("result", res)
-                            setUser(res.data);
-                            setEmail(res.data.email);
-                            setPhone(res.data.phone ? res.data.phone : '');
-                            setName(res.data.name);
-                        })
-                    }
-                }
-            )
 
-        } catch {
-            alert("something went wrong")
-        }
-    }
+
 
     // handle update data
     const updateUser = async () => {
@@ -73,7 +45,7 @@ const Profile = () => {
                     else {
                         res.json().then((res) => {
                             console.warn('update', res)
-                            getUser();
+                            // getUser();
                             alert(res.meta.message)
                         })
                     }
@@ -88,9 +60,39 @@ const Profile = () => {
     }
 
     useEffect(() => {
+        // get user detals
+        const getUser = async () => {
+            try {
+                await fetch('http://127.0.0.1:8000/api/user', {
+                    method: "GET",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${access_token}`
+                    }
+                }).then(
+                    (res) => {
+                        if (res.status === 500) {
+                            alert('error fetching data')
+                        }
+                        else {
+                            res.json().then((res) => {
+                                // console.log("result", res)
+                                setUser(res.data);
+                                setEmail(res.data.email);
+                                setPhone(res.data.phone ? res.data.phone : '');
+                                setName(res.data.name);
+                            })
+                        }
+                    }
+                )
+
+            } catch {
+                alert("something went wrong")
+            }
+        }
         getUser()
     }, [access_token])
-
     return (
         <div>
             <div className="container-fluid p-0">
@@ -102,45 +104,45 @@ const Profile = () => {
                                 <h5 className="card-title mb-0">Profile Details</h5>
                             </div>
                             <div className="card-body text-center">
-                                <img src={authUserx.data.profile_photo_url} alt={authUserx.data.name} className="img-fluid rounded-circle mb-2" width={128} height={128} />
-                                <h5 className="card-title mb-0">{authUserx.data.name}</h5>
+                                <img src={user.profile_photo_url} alt={user.name} className="img-fluid rounded-circle mb-2" width={128} height={128} />
+                                <h5 className="card-title mb-0">{user.name}</h5>
                                 <div className="text-muted mb-2">Lead Developer</div>
                                 <div>
-                                    <a className="btn btn-primary btn-sm" href="#" rel="noreferrer">Follow</a>
-                                    <a className="btn btn-primary btn-sm" href="#" rel="noreferrer"><span data-feather="message-square" /> Message</a>
+                                    <Link to="/" className="btn btn-primary btn-sm" rel="noreferrer">Follow</Link>
+                                    <Link to="/" className="btn btn-primary btn-sm" rel="noreferrer"><span data-feather="message-square" /> Message</Link>
                                 </div>
                             </div>
                             <hr className="my-0" />
                             <div className="card-body">
                                 <h5 className="h6 card-title">Skills</h5>
-                                <a href="#" className="badge bg-primary mr-1 my-1">HTML</a>
-                                <a href="#" className="badge bg-primary mr-1 my-1">JavaScript</a>
-                                <a href="#" className="badge bg-primary mr-1 my-1">Sass</a>
-                                <a href="#" className="badge bg-primary mr-1 my-1">Angular</a>
-                                <a href="#" className="badge bg-primary mr-1 my-1">Vue</a>
-                                <a href="#" className="badge bg-primary mr-1 my-1">React</a>
-                                <a href="#" className="badge bg-primary mr-1 my-1">Redux</a>
-                                <a href="#" className="badge bg-primary mr-1 my-1">UI</a>
-                                <a href="#" className="badge bg-primary mr-1 my-1">UX</a>
+                                <Link to="/" className="badge bg-primary mr-1 my-1">HTML</Link>
+                                <Link to="/" className="badge bg-primary mr-1 my-1">JavaScript</Link>
+                                <Link to="/" className="badge bg-primary mr-1 my-1">Sass</Link>
+                                <Link to="/" className="badge bg-primary mr-1 my-1">Angular</Link>
+                                <Link to="/" className="badge bg-primary mr-1 my-1">Vue</Link>
+                                <Link to="/" className="badge bg-primary mr-1 my-1">React</Link>
+                                <Link to="/" className="badge bg-primary mr-1 my-1">Redux</Link>
+                                <Link to="/" className="badge bg-primary mr-1 my-1">UI</Link>
+                                <Link to="/" className="badge bg-primary mr-1 my-1">UX</Link>
                             </div>
                             <hr className="my-0" />
                             <div className="card-body">
                                 <h5 className="h6 card-title">About</h5>
                                 <ul className="list-unstyled mb-0">
-                                    <li className="mb-1"><span data-feather="home" className="feather-sm mr-1" /> Lives in <a href="#">San Francisco, SA</a></li>
-                                    <li className="mb-1"><span data-feather="briefcase" className="feather-sm mr-1" /> Works at <a href="#">GitHub</a></li>
-                                    <li className="mb-1"><span data-feather="map-pin" className="feather-sm mr-1" /> From <a href="#">Boston</a></li>
+                                    <li className="mb-1"><span data-feather="home" className="feather-sm mr-1" /> Lives in <Link to="/">San Francisco, SA</Link></li>
+                                    <li className="mb-1"><span data-feather="briefcase" className="feather-sm mr-1" /> Works at <Link to="/">GitHub</Link></li>
+                                    <li className="mb-1"><span data-feather="map-pin" className="feather-sm mr-1" /> From <Link to="/">Boston</Link></li>
                                 </ul>
                             </div>
                             <hr className="my-0" />
                             <div className="card-body">
                                 <h5 className="h6 card-title">Elsewhere</h5>
                                 <ul className="list-unstyled mb-0">
-                                    <li className="mb-1"><span className="fas fa-globe fa-fw mr-1" /> <a href="#">staciehall.co</a></li>
-                                    <li className="mb-1"><span className="fab fa-twitter fa-fw mr-1" /> <a href="#">Twitter</a></li>
-                                    <li className="mb-1"><span className="fab fa-facebook fa-fw mr-1" /> <a href="#">Facebook</a></li>
-                                    <li className="mb-1"><span className="fab fa-instagram fa-fw mr-1" /> <a href="#">Instagram</a></li>
-                                    <li className="mb-1"><span className="fab fa-linkedin fa-fw mr-1" /> <a href="#">LinkedIn</a></li>
+                                    <li className="mb-1"><span className="fas fa-globe fa-fw mr-1" /> <Link to="/">staciehall.co</Link></li>
+                                    <li className="mb-1"><span className="fab fa-twitter fa-fw mr-1" /> <Link to="/">Twitter</Link></li>
+                                    <li className="mb-1"><span className="fab fa-facebook fa-fw mr-1" /> <Link to="/">Facebook</Link></li>
+                                    <li className="mb-1"><span className="fab fa-instagram fa-fw mr-1" /> <Link to="/">Instagram</Link></li>
+                                    <li className="mb-1"><span className="fab fa-linkedin fa-fw mr-1" /> <Link to="/">LinkedIn</Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -181,13 +183,7 @@ const Profile = () => {
                                             <label className="form-label" htmlFor="inputCity">City</label>
                                             <input type="text" className="form-control" id="inputCity" />
                                         </div>
-                                        <div className="mb-3 col-md-4">
-                                            <label className="form-label" htmlFor="inputState">State</label>
-                                            <select defaultValue='' id="inputState" className="form-control">
-                                                <option selected>Choose...</option>
-                                                <option>...</option>
-                                            </select>
-                                        </div>
+
                                         <div className="mb-3 col-md-2">
                                             <label className="form-label" htmlFor="inputZip">Zip</label>
                                             <input type="text" className="form-control" id="inputZip" />
